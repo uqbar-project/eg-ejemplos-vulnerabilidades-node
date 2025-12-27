@@ -1,8 +1,6 @@
 
 # CSRF Vulnerable
 
-Esta versión tiene un backend vulnerable, sin embargo vamos a ver que desde 2020 los navegadores modernos bloquean los ataques CSRF.
-
 ## El server
 
 Para levantar el server, desde el directorio raíz hacemos:
@@ -14,9 +12,9 @@ pnpm --filter csrf-vulnerable dev
 
 El server ofrece dos endpoints:
 
-- `/login`
-- `/transferir`
-- pero también una app que se sirve en los archivos `public`
+- login
+- transferir
+- acompañado de vistas html para cada caso de uso
 
 ## Transferencia sin estar logueado
 
@@ -64,11 +62,9 @@ Preso de la ansiedad, hacemos click en el botón que inadvertidamente envía la 
 
 En este caso, el atacante manda un archivo con un `<form>` que envía la orden de transferir a la cuenta del atacante **tratando de aprovecharse de una cookie existente**.
 
-![csrf attack](./images/csrf-attack-form.png)
-
 ## Por qué no funciona el ataque
 
-Nuestro server solo valida que exista una cookie, pero no valida que sea la nuestra
+Nuestro server solo valida que exista una cookie
 
 ```ts
 app.post('/transferir', (req, res) => {
@@ -92,8 +88,8 @@ app.post('/login', (req, res) => {
   })
 ```
 
-- httpOnly: activada, evita que la cookie pueda ser accedida desde JavaScript. Pero ésto lo veremos más adelante cuando hagamos un ataque XSS.
-- sameSite: 'lax', evita que la cookie se envíe cuando se haga una navegación cruzada (el origen sea distinto al de la página). Hay tres valores posibles: 'lax', 'strict' y 'none'. 'lax' es el valor por defecto y es el que usamos en este ejemplo.
+- **httpOnly**: activada, evita que la cookie pueda ser accedida desde JavaScript. Pero ésto lo veremos más adelante cuando hagamos un ataque XSS.
+- **sameSite**: 'lax', evita que la cookie se envíe cuando se haga una navegación cruzada en pedidos que no sean GET (el origen sea distinto al de la página). Hay tres valores posibles: 'lax', 'strict' y 'none'. 'lax' es el valor por defecto y es el que usamos en este ejemplo.
 
 ## Qué pasa si tenemos un endpoint GET para transferir
 
@@ -121,9 +117,9 @@ Dijimos anteriormente que había tres tipos de configuración para el atributo S
 
 - 'lax', que es el valor por defecto
 - 'strict'
-- 'none'
+- 'none', que fuerza a usar https (atributo Secure=true)
 
-Si cambiamos la configuración de la cookie a 'strict', el ataque no funcionaría, porque la cookie no se envía si el origen es distinto al de la página.
+Si cambiamos la configuración de la cookie a 'strict', el ataque no funcionaría, porque la cookie no se envía si el origen es distinto al de la página **en ningún caso**, mientras que 'lax' nos deja enviar la cookie en pedidos GET.
 
 Hacemos el cambio en el login:
 
@@ -143,7 +139,8 @@ Y vemos que el ataque ahora no funciona:
 
 ## La forma correcta de prevenir CSRF
 
-La forma correcta de prevenir CSRF es **validar intención**. Por ejemplo, con un token CSRF.
+La forma correcta de prevenir CSRF es **validar intención**. Por ejemplo, con un token CSRF. Dejamos aquí una implementación posible para que el lector curioso la implemente.
 
 ### El login devuelve un token CSRF
 
+TODO
