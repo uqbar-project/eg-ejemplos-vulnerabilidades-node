@@ -137,10 +137,96 @@ Y vemos que el ataque ahora no funciona:
 
 ![csrf ataque vía GET falla con strict](./images/csrf-attack-get-nok.png)
 
-## La forma correcta de prevenir CSRF
+## BONUS: La forma correcta de prevenir CSRF
 
-La forma correcta de prevenir CSRF es **validar intención**. Por ejemplo, con un token CSRF. Dejamos aquí una implementación posible para que el lector curioso la implemente.
+Vamos a dejarte la explicación de una implementación posible del token CSRF. 
 
 ### El login devuelve un token CSRF
 
-TODO
+```ts
+import crypto from 'crypto'
+
+const csrfTokens = new Map<string, string>()
+
+app.post('/login', (req, res) => {
+  const { user, password } = req.body
+  if (!USERS[user] || USERS[user].password !== password) {
+    return res.status(401).send('Credenciales inválidas')
+  }
+
+  const csrfToken = crypto.randomUUID()
+  csrfTokens.set(user, csrfToken)
+
+  res.cookie('session', user, { httpOnly: true })
+  res.send({ csrfToken })
+})
+```
+
+Fíjense que el endpoint de login devuelve
+
+- la cookie con la información del usuario logueado
+- pero también el token CSRF (con el formato json: `{ csrfToken: 'token' }`)
+
+El token CSRF es un valor aleatorio que se genera en el servidor y se envía al cliente. 
+
+### El frontend guarda el token CSRF
+
+Dado que la cookie se envió como httpOnly, el frontend no puede acceder a ella. Por eso el server devuelve **aparte** el token CSRF, que el frontend puede guardar en memoria (por ejemplo en localStorage).
+
+```ts
+const csrfToken = /* recibido del login */
+```
+
+Eso nos permite que en el pedido de transferencia, el frontend pueda incluir el token CSRF en el header.
+
+```ts
+fetch('/transferir', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'X-CSRF-Token': csrfToken
+  },
+  body: JSON.stringify({ monto: 1000 })
+})
+```
+
+### El server valida el token CSRF en la transferencia
+
+Veamos cómo queda el código del endpoint de transferencia:
+
+```ts
+app.post('/transferir', (req, res) => {
+  const user = req.cookies.session
+  if (!user) {
+    return res.status(401).send('No autorizado')
+  }
+
+  const expected = csrfTokens.get(user)
+  const received = req.headers['x-csrf-token']
+
+  if (!expected || received !== expected) {
+    return res.status(403).send('CSRF detectado')
+  }
+
+  USERS[user].saldo -= Number(req.body.monto)
+  res.send('Transferencia realizada')
+})
+```
+
+No solo chequeamos que el usuario esté logueado, sino que el token CSRF que envía el cliente sea igual que el que el server envió. Para ello, cada user tiene su propio token CSRF y lo consultamos en el mapa `csrfTokens`.
+
+## Por qué un atacante no puede acceder al token CSRF
+
+Un atacante no puede acceder al token CSRF porque el navegador aplica la
+**Same-Origin Policy**.
+
+El token CSRF está almacenado (por ejemplo) en el `localStorage` del origen
+`http://localhost:3000`. Solo el código JavaScript que se ejecute **desde ese mismo origen** puede leer ese valor.
+
+La página atacante se ejecuta en **otro origen** (por ejemplo `file://`, `http://evil.com`, etc.), por lo que:
+
+- no puede leer el `localStorage`
+- no puede acceder a cookies
+- no puede inspeccionar respuestas del servidor
+
+Aunque el atacante puede inducir al navegador a **enviar una request** al sitio víctima, **no puede obtener ni reutilizar el token CSRF**, y por eso el backend puede detectar y bloquear el ataque.
