@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+
+  <header class="topbar">
+    <h1>Banco Ejemplo</h1>
+    <span class="user">👤 fernando</span>
+  </header>
+
+  <main class="container">
+    <section class="card balance">
+      <h2>Saldo disponible</h2>
+      <p class="amount">$ 150.000</p>
+    </section>
+
+    <section class="card">
+      <h2>Transferencia</h2>
+
+      <form id="transferForm">
+        <label>
+          CBU destino
+          <input name="to" required />
+        </label>
+
+        <label>
+          Monto
+          <input name="amount" type="number" required />
+        </label>
+
+        <button type="submit">Transferir</button>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    document.getElementById('transferForm').addEventListener('submit', async e => {
+      e.preventDefault()
+
+      const form = e.target
+      const body = {
+        to: form.to.value,
+        amount: Number(form.amount.value)
+      }
+
+      const res = await fetch('/transferir', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'same-origin',
+        body: JSON.stringify(body)
+      })
+
+      alert(await res.text())
+    })
+  </script>
+
+</body>
+</html>

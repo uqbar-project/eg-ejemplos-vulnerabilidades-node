@@ -1,0 +1,106 @@
+body {
+  font-family: system-ui, sans-serif;
+  background: #f4f6f8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-box {
+  background: white;
+  padding: 2rem;
+  width: 320px;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.3rem;
+  box-sizing: border-box;
+}
+
+button {
+  width: 100%;
+  padding: 0.6rem;
+  background: #0a3d62;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #074173;
+}
+
+/* =========================
+   DASHBOARD (no rompe login)
+   ========================= */
+
+/* Cuando hay dashboard, anulamos el centrado del body */
+body:has(.topbar) {
+  display: block;
+  height: auto;
+}
+
+/* Barra superior */
+.topbar {
+  background: #0a3d62;
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.topbar h1 {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.topbar .user {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+/* Contenedor principal */
+.container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  display: grid;
+  gap: 2rem;
+}
+
+/* Tarjetas */
+.card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.card h2 {
+  margin-bottom: 1rem;
+}
+
+/* Saldo */
+.balance .amount {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #0a3d62;
+}

