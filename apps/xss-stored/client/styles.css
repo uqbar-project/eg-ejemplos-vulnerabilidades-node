@@ -1,0 +1,84 @@
+:root {
+  --azul-oscuro: #1e293b;
+  --azul-acento: #3b82f6;
+  --fondo: #f8fafc;
+  --texto: #334155;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--fondo);
+  color: var(--texto);
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+}
+
+#app {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+}
+
+h1 {
+  color: var(--azul-oscuro);
+  border-bottom: 2px solid var(--azul-acento);
+  padding-bottom: 10px;
+  font-size: 1.5rem;
+}
+
+.comment-card {
+  background: #ffffff;
+  border-left: 4px solid var(--azul-acento);
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.comment-id {
+  font-size: 0.75rem;
+  color: #64748b;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.comment-text {
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+textarea {
+  width: -webkit-fill-available;
+  min-height: 80px;
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  resize: vertical;
+  font-family: inherit;
+}
+
+button {
+  background-color: var(--azul-oscuro);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+button:hover {
+  background-color: var(--azul-acento);
+}

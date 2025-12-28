@@ -1,6 +1,7 @@
+import path from 'path'
+
 import express from 'express'
 import cookieParser from 'cookie-parser'
-import path from 'path'
 
 const app = express()
 app.use(express.urlencoded({ extended: true }))
@@ -16,8 +17,8 @@ type Usuario = {
 const USERS: Record<string, Usuario> = {
   fernando: {
     password: '1234',
-    saldo: 100000
-  }
+    saldo: 100000,
+  },
 }
 
 // vistas
@@ -74,5 +75,5 @@ app.get('/transferir', (req, res) => {
 })
 
 app.listen(3000, () =>
-  console.log('🔥 Server vulnerable en http://localhost:3000')
+  console.log('🔥 Server vulnerable en http://localhost:3000'),
 )

@@ -27,7 +27,7 @@ export default [
       quotes: ['error', 'single'],
       indent: ['error', 2],
       'comma-dangle': ['error', 'always-multiline'],
-      'object-curly-spacing': ['error', 'never'],
+      'object-curly-spacing': ['error', 'always'],
 
       // calidad
       'no-unused-vars': ['error', {argsIgnorePattern: '^_'}],
@@ -42,7 +42,16 @@ export default [
           groups: ['builtin', 'external', 'internal'],
           'newlines-between': 'always'
         }
-      ]
+      ],
+
+      // seguridad
+      'no-restricted-properties': [
+        'warn',
+        {
+          property: 'innerHTML',
+          message: 'El uso de innerHTML es vulnerable a ataques XSS (Stored & Reflected). Usá textContent en su lugar.'
+        }
+      ],
     }
   },
 

@@ -9,11 +9,11 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "cookie-parser": "^1.4.6",
-    "express": "^4.19.2"
+    "cookie-parser": "1.4.6",
+    "express": "4.19.2"
   },
   "devDependencies": {
-    "@types/cookie-parser": "^1.4.10",
-    "@types/express": "^5.0.6"
+    "@types/cookie-parser": "1.4.10",
+    "@types/express": "5.0.6"
   }
 }
