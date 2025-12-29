@@ -1,7 +1,6 @@
 import express, { Request, Response, Application } from 'express'
 import cors from 'cors'
 import { Comment } from '@shared/types.js'
-import { sanitizeHtmlInput } from '@shared/xss.js'
 
 const serverApplication: Application = express()
 
@@ -23,7 +22,7 @@ serverApplication.get('/comments', (_request: Request, response: Response) => {
   // No le ponemos 'HttpOnly' porque sino el JavaScript no la puede leer (y queremos que sea vulnerable).
   response.cookie('sessionID', 'abc-123-unsam-secret', {
     maxAge: 900000,
-    httpOnly: true, // NO Permitimos que JS la lea para la demo
+    httpOnly: false, // Permitimos que JS la lea para la demo
     secure: false,   // No usamos https
     sameSite: 'lax',
     path: '/',
