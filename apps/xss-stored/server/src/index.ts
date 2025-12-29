@@ -33,8 +33,7 @@ serverApplication.get('/comments', (_request: Request, response: Response) => {
 })
 
 serverApplication.post('/comments', (request: Request, response: Response) => {
-  const { rawText } = request.body
-  const text = sanitizeHtmlInput(rawText)
+  const { text } = request.body
   const newComment: Comment = { 
     id: Date.now(), 
     text: text,

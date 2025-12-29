@@ -129,7 +129,9 @@ const loadComments = async (): Promise<void> => {
 }
 ```
 
-Ya con esos cambios podés ver que el payload XSS no se ejecuta porque `textContent` trata el contenido como texto plano: `http://localhost:5173/fixed`.
+Ya con esos cambios podés ver que el payload XSS no se ejecuta porque `textContent` trata el contenido como texto plano: `http://localhost:5173/fixed`:
+
+![xss solucionado en el cliente](./images/xss-solved-client.png)
 
 ### En el servidor
 
@@ -141,7 +143,7 @@ En el endpoint que crea los comments, agregamos la función de sanitización:
 
 ```ts
 serverApplication.post('/comments', (request: Request, response: Response) => {
-  const { rawText } = request.body
+  const { text: rawText } = request.body
   const text = sanitizeHtmlInput(rawText)
   ...
 ```
