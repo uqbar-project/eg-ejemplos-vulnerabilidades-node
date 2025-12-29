@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ejemplo XSS Stored</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <div id="app">
+      <h1>Libro de Visitas (PHM)</h1>
+      <div id="comments-list-container"></div>
+      <hr>
+      <div class="form-container">
+        <textarea id="comment-input-area" placeholder="Escribí algo..."></textarea>
+        <button id="send-comment-button">Enviar</button>
+      </div>
+    </div>
+    <script type="module" src="/src/mainFixed.ts"></script>
+  </body>
+</html>

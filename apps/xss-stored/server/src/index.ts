@@ -1,6 +1,7 @@
 import express, { Request, Response, Application } from 'express'
 import cors from 'cors'
 import { Comment } from '@shared/types.js'
+import { sanitizeHtmlInput } from '@shared/xss.js'
 
 const serverApplication: Application = express()
 
@@ -32,7 +33,8 @@ serverApplication.get('/comments', (_request: Request, response: Response) => {
 })
 
 serverApplication.post('/comments', (request: Request, response: Response) => {
-  const { text } = request.body
+  const { rawText } = request.body
+  const text = sanitizeHtmlInput(rawText)
   const newComment: Comment = { 
     id: Date.now(), 
     text: text,
