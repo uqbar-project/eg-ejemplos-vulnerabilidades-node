@@ -82,7 +82,9 @@ serverApplication.get('/comments', (_request: Request, response: Response) => {
 
 Si nosotros cambiamos la configuración a httpOnly: true, el atacante ya no podría leer la cookie desde JavaScript, lo que mitigaría el riesgo de XSS.
 
-![XSS no ocurre si activamos en la cookie httpOnly](./images/xss-no-ocurre-con-http-only.gif)
+![XSS no ocurre si activamos en la cookie httpOnly](./images/xss-http-only-ok.gif)
+
+De todas maneras, el alert sigue ejecutándose y la posibilidad de hacer daño existe.
 
 ## Cómo prevenir el ataque XSS
 
@@ -131,7 +133,7 @@ const loadComments = async (): Promise<void> => {
 
 Ya con esos cambios podés ver que el payload XSS no se ejecuta porque `textContent` trata el contenido como texto plano: `http://localhost:5173/fixed`:
 
-![xss solucionado en el cliente](./images/xss-solved-client.png)
+<img src="./images/xss-solved-client.png" width="50%" height="50%">
 
 ### En el servidor
 
