@@ -236,4 +236,4 @@ Aunque el atacante puede inducir al navegador a **enviar una request** al sitio 
 - [XSS Stored](../xss-stored/)
 - [XSS Reflected](../xss-reflected/)
 - [XSS DOM](../xss-dom/)
-- [Página principal](../)
+- [Página principal](../..)

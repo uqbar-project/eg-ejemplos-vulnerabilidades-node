@@ -170,3 +170,9 @@ export const sanitizeHtmlInput = (rawString: string): string => {
 
 Si querés algo más elaborado, tenés bibliotecas como [DOMPurify](https://github.com/cure53/DOMPurify) o [sanitize-html](https://www.npmjs.com/package/sanitize-html).
 
+## Links
+
+- [CSRF](../csrf-vulnerable/)
+- [XSS Reflected](../xss-reflected/)
+- [XSS DOM](../xss-dom/)
+- [Página principal](../..)

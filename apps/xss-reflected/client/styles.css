@@ -1,0 +1,147 @@
+/* client/styles.css */
+:root {
+  --primary-color: #1a5f7a;
+  --secondary-color: #c69c6d;
+  --bg-color: #f0f2f5;
+  --text-color: #333;
+  --font-family: 'Manrope', 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.bank-container {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 500px;
+  border-top: 8px solid var(--primary-color);
+}
+
+.bank-logo {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--primary-color);
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.alert-box {
+  background-color: #fff4f4;
+  border: 1px solid #ffcccc;
+  padding: 15px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+.btn-verify {
+  display: block;
+  text-align: center;
+  background-color: #d9534f;
+  color: white;
+  padding: 12px;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.btn-verify:hover {
+  background-color: #c9302c;
+}
+
+.search-section {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px dashed #ccc;
+  text-align: center;
+}
+
+input[type="text"] {
+  width: calc(100% - 24px);
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+/* Sección de búsqueda mejorada */
+.search-section {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px dashed #ccc;
+}
+
+.search-section p {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+/* Contenedor del formulario para alinear input y botón */
+.search-form {
+  display: flex;
+  flex-direction: column; /* Apila los elementos */
+  align-items: center;    /* Centra los elementos horizontalmente */
+  gap: 15px;
+}
+
+.search-input {
+  flex: 1; /* El input ocupa todo el espacio sobrante */
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.search-input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(26, 95, 122, 0.1);
+}
+
+.btn-search {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0 25px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.1s;
+}
+
+.btn-search:hover {
+  background-color: #144a5f;
+}
+
+.btn-search:active {
+  transform: scale(0.98); /* Efecto de click */
+}
+
+form {
+  display: flex;
+  gap: 10px;
+  align-items: top;
+}
+
+button {
+  height: 2.8em;
+  width: 8em;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
