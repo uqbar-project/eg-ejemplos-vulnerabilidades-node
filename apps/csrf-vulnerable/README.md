@@ -230,3 +230,10 @@ La página atacante se ejecuta en **otro origen** (por ejemplo `file://`, `http:
 - no puede inspeccionar respuestas del servidor
 
 Aunque el atacante puede inducir al navegador a **enviar una request** al sitio víctima, **no puede obtener ni reutilizar el token CSRF**, y por eso el backend puede detectar y bloquear el ataque.
+
+## Links
+
+- [XSS Stored](../xss-stored/)
+- [XSS Reflected](../xss-reflected/)
+- [XSS DOM](../xss-dom/)
+- [Página principal](../)
