@@ -32,38 +32,15 @@ jobs:
         node-version: 'lts/jod'
         cache: 'pnpm'
     
-    - name: Debug - List files
+    - name: Verificar lockfile
       run: |
-        echo "=== Archivos en el directorio raíz ==="
-        ls -la
-        echo -e "\n=== Contenido de pnpm-lock.yaml ==="
-        if [ -f pnpm-lock.yaml ]; then
-          file pnpm-lock.yaml
-          head -n 5 pnpm-lock.yaml
-          echo "..."
-          wc -l pnpm-lock.yaml
-        else
-          echo "ERROR: pnpm-lock.yaml no encontrado"
+        if [ ! -f pnpm-lock.yaml ]; then
+          echo "::error::pnpm-lock.yaml no encontrado. Ejecuta 'pnpm install' localmente y haz commit del archivo."
           exit 1
         fi
         
-    - name: Fix line endings if needed
-      run: |
-        # Convertir saltos de línea a formato Unix si es necesario
-        dos2unix -n pnpm-lock.yaml pnpm-lock.yaml.fixed && mv pnpm-lock.yaml.fixed pnpm-lock.yaml || true
-        
-    - name: Install dependencies
-      run: |
-        # Primero intentar con --frozen-lockfile
-        if ! pnpm install --frozen-lockfile; then
-          echo "::warning::Fallando con --frozen-lockfile, intentando sin él..."
-          pnpm install --no-frozen-lockfile
-          # Si falla, regenerar el lockfile
-          if [ $? -ne 0 ]; then
-            echo "::error::Error al instalar dependencias. Por favor, ejecuta 'pnpm install' localmente y haz commit del lockfile."
-            exit 1
-          fi
-        fi
+    - name: Instalar dependencias
+      run: pnpm install --frozen-lockfile
     
     - name: Lint root directory
       run: pnpm lint
@@ -75,25 +52,25 @@ jobs:
     
     - name: Lint XSS DOM Based App
       working-directory: ./apps/xss-dom-based/client
-      run: pnpm lint
+      run: pnpm build
       if: success()
     
     - name: Lint XSS Reflected Client
       working-directory: ./apps/xss-reflected/client
-      run: pnpm lint
+      run: pnpm build
       if: success()
     
     - name: Lint XSS Reflected Server
       working-directory: ./apps/xss-reflected/server
-      run: pnpm lint
+      run: pnpm build
       if: success()
     
     - name: Lint XSS Stored Client
       working-directory: ./apps/xss-stored/client
-      run: pnpm lint
+      run: pnpm build
       if: success()
     
     - name: Lint XSS Stored Server
       working-directory: ./apps/xss-stored/server
-      run: pnpm lint
+      run: pnpm build
       if: success()
