@@ -17,6 +17,9 @@ jobs:
     
     steps:
     - uses: actions/checkout@v3
+      with:
+        # Ensure we get the full history to check for the lockfile
+        fetch-depth: 0
     
     - name: Install pnpm
       uses: pnpm/action-setup@v2
@@ -29,6 +32,13 @@ jobs:
         node-version: 'lts/jod'
         cache: 'pnpm'
     
+    - name: Verify lockfile exists
+      run: |
+        if [ ! -f pnpm-lock.yaml ]; then
+          echo "::error::pnpm-lock.yaml is missing. Please run 'pnpm install' and commit the lockfile."
+          exit 1
+        fi
+        
     - name: Install dependencies
       run: pnpm install --frozen-lockfile
     
