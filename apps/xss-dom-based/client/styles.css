@@ -1,0 +1,77 @@
+:root {
+  --primary-color: #1a5f7a;
+  --secondary-color: #3685a9;
+  --success-color: #28a745;
+  --bg-color: #f0f2f5;
+  --text-dark: #333;
+  --text-light: #666;
+  --white: #ffffff;
+}
+
+body {
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-color);
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.bank-card {
+  background: var(--white);
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 450px;
+  border-top: 8px solid var(--primary-color);
+  text-align: center;
+}
+
+.bank-logo {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--primary-color);
+  margin-bottom: 25px;
+  letter-spacing: 1px;
+}
+
+.status-icon {
+  font-size: 60px;
+  color: var(--success-color);
+  margin-bottom: 15px;
+}
+
+.title-success {
+  color: var(--success-color);
+  margin-top: 0;
+}
+
+.message-text {
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+.user-name {
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: var(--white);
+  border: none;
+  padding: 14px 28px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 20px;
+  transition: background 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--secondary-color);
+}

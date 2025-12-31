@@ -65,7 +65,7 @@ app.get('/search', (request, response) => {
 
 ## Cómo evitar el ataque XSS reflected
 
-Para evitar el ataque, nuevamente podemos usar
+Para evitar el ataque una vez más podemos usar
 
 - bibliotecas como [DOMPurify](https://github.com/cure53/DOMPurify) o [sanitize-html](https://www.npmjs.com/package/sanitize-html)
 - funciones de sanitización personalizadas como la que usamos anteriormente: `sanitizeHtmlInput`
@@ -80,14 +80,15 @@ import DOMPurify from 'isomorphic-dompurify'
 const searchTerm = DOMPurify.sanitize(request.query.query || '')
 ```
 
-Probamos nuevamente ingresar a `http://localhost:5173/search.html` y al presionar el botón fíjense que ya no nos salta el alert.
+Una vez hecho el cambio ingresamos a `http://localhost:5173/search.html` y al presionar el botón fíjense que ya no nos salta el alert.
 
 ## Características de este tipo de ataque
 
 Este ataque se da en aplicaciones con Server Side Rendering (SSR) donde el servidor construye el HTML y se lo envía al cliente.
+
 ## Links
 
 - [CSRF](../csrf-vulnerable/)
 - [XSS Stored](../xss-stored/)
-- [XSS DOM](../xss-dom/)
+- [XSS DOM Based](../xss-dom-based/)
 - [Página principal](../..)

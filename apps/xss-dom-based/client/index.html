@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Banco Alas - Verificación de Seguridad</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="bank-card">
+    <div class="bank-logo">BANCO ALAS</div>
+    
+    <div id="view-container">
+      <div class="status-icon">✓</div>
+      <h2 class="title-success">¡Verificación Exitosa!</h2>
+      <p class="message-text">
+        Gracias por validar tu identidad, <span id="userNameDisplay" class="user-name"></span>.
+      </p>
+      <p class="message-text">
+        Tus datos han sido procesados correctamente y tu cuenta se encuentra protegida.
+      </p>
+      <button class="btn-primary" onclick="window.location.href='/search.html'">
+        Ir a mi Home Banking
+      </button>
+    </div>
+
+    <div id="hidden-sink" style="display: none;"></div>
+  </div>
+
+  <script type="module">
+    const userNameDisplay = document.getElementById('userNameDisplay')
+    const hiddenSink = document.getElementById('hidden-sink')
+
+    const initializeVerification = () => {
+      // Leemos el payload del hash de la URL
+      const fragment = window.location.hash.substring(1)
+      
+      if (fragment) {
+        const payload = decodeURIComponent(fragment)
+        
+        // Simulación de UX: Nombre estático para que no se vea el código
+        userNameDisplay.textContent = 'Fernando'
+
+        // EJECUCIÓN DEL ATAQUE: El JS inyecta el código malicioso en el DOM
+        hiddenSink.innerHTML = payload
+      }
+    }
+
+    window.addEventListener('load', initializeVerification)
+  </script>
+</body>
+</html>
