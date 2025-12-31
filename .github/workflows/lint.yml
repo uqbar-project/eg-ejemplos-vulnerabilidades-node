@@ -1,0 +1,66 @@
+name: Build
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+defaults:
+  run:
+    working-directory: ./
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 'lts/jod'
+        cache: 'pnpm'
+    
+    - name: Install pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: 8
+    
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile
+    
+    - name: Lint root directory
+      run: pnpm lint
+    
+    - name: Lint CSRF Vulnerable App
+      working-directory: ./apps/csrf-vulnerable
+      run: pnpm lint
+      if: success()
+    
+    - name: Lint XSS DOM Based App
+      working-directory: ./apps/xss-dom-based/client
+      run: pnpm lint
+      if: success()
+    
+    - name: Lint XSS Reflected Client
+      working-directory: ./apps/xss-reflected/client
+      run: pnpm lint
+      if: success()
+    
+    - name: Lint XSS Reflected Server
+      working-directory: ./apps/xss-reflected/server
+      run: pnpm lint
+      if: success()
+    
+    - name: Lint XSS Stored Client
+      working-directory: ./apps/xss-stored/client
+      run: pnpm lint
+      if: success()
+    
+    - name: Lint XSS Stored Server
+      working-directory: ./apps/xss-stored/server
+      run: pnpm lint
+      if: success()
