@@ -31,7 +31,7 @@ pasando como body
 }
 ```
 
-Vasmos a recbir un error 401 (No autorizado): no puedo validar que sea yo quien está haciendo la transferencia.
+Vamos a recbir un error 401 (No autorizado): no puedo validar que sea yo quien está haciendo la transferencia.
 
 ![transferencia sin loguear](./images/transferencia-401.png)
 
@@ -52,7 +52,7 @@ No hace falta enviar nada en el body. Luego simulamos una transferencia:
 
 El archivo [csrf-attack.html](./app-atacante/csrf-attack.html) simula un típico ataque CSRF: a veces es un mail con un `<form>`, a veces es un `<link>` en una página web, etc. Al abrir el archivo (arrastralo directamente al navegador) nos aparece un típico mensaje de ingeniería social, que suele tener frases alarmistas, con carga emocional, una urgencia artificial, que requiere una acción inmediata.
 
-Preso de la ansiedad, hacemos click en el botón que inadvertidamente envía la orden de transferir a la cuenta del atacante.
+Presos de la ansiedad, hacemos click en el botón que inadvertidamente envía la orden de transferir a la cuenta del atacante.
 
 ![csrf attack](./images/csrf-attack-form.png)
 
