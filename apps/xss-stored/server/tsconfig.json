@@ -1,15 +1,15 @@
 {
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "../../dist/server",
+    "rootDir": "..",
     "lib": ["ES2022", "DOM"],
-    "baseUrl": ".",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
     "paths": {
+      "*": ["./*"],
       "@shared/*": ["../shared/*"]
     },
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "types": ["node"]
   },
-  "include": ["src", "../shared"]
+  "include": ["src", "../shared"],
 }

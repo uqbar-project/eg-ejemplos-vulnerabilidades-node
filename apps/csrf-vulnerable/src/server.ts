@@ -36,7 +36,7 @@ app.post('/login', (req, res) => {
 
   res.cookie('session', user, {
     httpOnly: true,
-    sameSite: 'strict', // 'lax' es el valor por defecto
+    sameSite: 'lax', // 'lax' es el valor por defecto
   })
 
   res.redirect('/dashboard')
