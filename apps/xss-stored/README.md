@@ -23,6 +23,12 @@ pnpm --filter @vulnerabilities/xss-stored-client dev
 
 ## Forzando la vulnerabilidad
 
+Ingresamos a la aplicación:
+
+```bash
+http://localhost:5173/
+```
+
 Si escribimos en el text area el siguiente payload:
 
 ```html

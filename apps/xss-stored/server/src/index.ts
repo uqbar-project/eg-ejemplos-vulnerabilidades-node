@@ -35,7 +35,7 @@ serverApplication.post('/comments', (request: Request, response: Response) => {
   const { text } = request.body
   const newComment: Comment = { 
     id: Date.now(), 
-    text: text,
+    text,
   }
   
   // Vulnerabilidad: se guarda el string sin sanitizar
