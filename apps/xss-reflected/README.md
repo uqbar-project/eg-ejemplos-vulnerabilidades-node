@@ -8,7 +8,7 @@ Desde la carpeta raíz del proyecto
 
 ```bash
 cd apps/xss-reflected/server
-pnpm dev
+pnpm dev:watch
 🚀 XSS Reflected en puerto 3001
 ```
 

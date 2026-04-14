@@ -6,7 +6,7 @@
 Para levantar el server, desde el directorio raíz hacemos:
 
 ```bash
-pnpm --filter csrf-vulnerable dev
+pnpm --filter csrf-vulnerable dev:watch
 🔥 Server vulnerable en http://localhost:3000
 ```
 

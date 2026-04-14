@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "tsx src/server.ts",
+    "dev:watch": "nodemon --exec tsx src/server.ts --watch src --ext ts,js,json",
     "build": "tsc",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
@@ -14,6 +15,7 @@
   },
   "devDependencies": {
     "@types/cookie-parser": "1.4.10",
-    "@types/express": "5.0.6"
+    "@types/express": "5.0.6",
+    "nodemon": "3.1.0"
   }
 }

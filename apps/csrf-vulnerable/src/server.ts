@@ -36,7 +36,9 @@ app.post('/login', (req, res) => {
 
   res.cookie('session', user, {
     httpOnly: true,
-    sameSite: 'lax', // 'lax' es el valor por defecto
+    sameSite: 'none', // 'lax' es el valor por defecto
+    // para 'none' es necesario el flag secure
+    // secure: true,
   })
 
   res.redirect('/dashboard')
@@ -45,7 +47,6 @@ app.post('/login', (req, res) => {
 app.get('/dashboard', (req, res) => {
   const user = req.cookies.session
 
-  // Evitamos que una persona no logueada pueda acceder al dashboard
   if (!user || !USERS[user]) {
     return res.redirect('/login.html')
   }
@@ -53,26 +54,18 @@ app.get('/dashboard', (req, res) => {
   res.sendFile(path.join(process.cwd(), 'public/dashboard.html'))
 })
 
-// endpoint sensible
-app.post('/transferir', (req, res) => {
+const transferir = (req: express.Request, res: express.Response) => {
   const user = req.cookies.session
   if (!user || !USERS[user]) {
     return res.status(401).send('No autorizado')
   }
 
   USERS[user].saldo -= Number(req.body.monto || 0)
-  res.send('Transferencia realizada 💸')
-})
+  res.send(`Transferencia realizada vía ${req.method} 💸`)
+}
 
-app.get('/transferir', (req, res) => {
-  const user = req.cookies.session
-  if (!user || !USERS[user]) {
-    return res.status(401).send('No autorizado')
-  }
-
-  USERS[user].saldo -= Number(req.body.monto || 0)
-  res.send('Transferencia realizada vía GET 💸')
-})
+app.post('/transferir', transferir)
+app.get('/transferir', transferir)
 
 app.listen(3000, () =>
   console.log('🔥 Server vulnerable en http://localhost:3000'),
